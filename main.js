@@ -91,8 +91,8 @@ world.gravity.set(0, -9.82, 0);
 const ballShape = new CANNON.Sphere(radius);
 const ballBody = new CANNON.Body({ mass: 1, shape: ballShape, material: new CANNON.Material() });
 ballBody.position.copy(ball.position);
-ballBody.linearDamping = 0.5; // Add linear damping
-ballBody.angularDamping = 0.5; // Add angular damping
+ballBody.linearDamping = 0.1; // Add linear damping
+ballBody.angularDamping = 0.1; // Add angular damping
 world.addBody(ballBody);
 
 // Add the floor to the Cannon.js world
@@ -191,7 +191,7 @@ ballBody.addEventListener("collide", function (e) {
     // Calculate the new velocity based on the collision normal (e.contact.ni) and restitution
     const restitution = 0.2; // Adjust this value as needed
     const speed = ballBody.velocity.length();
-    const newVelocity = new CANNON.Vec3().copy(e.contact.ni).mult(speed * restitution + 20);
+    const newVelocity = new CANNON.Vec3().copy(e.contact.ni).mult(speed * restitution);
     ballBody.velocity.copy(newVelocity);
 });
 
