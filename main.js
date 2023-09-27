@@ -25,6 +25,7 @@ const basketballMaterial = new THREE.MeshStandardMaterial({
     roughness: 0.4, // Adjust roughness as needed
     metalness: 0.2, // Adjust metalness as needed
 });
+
 const ball = new THREE.Mesh(geometry, basketballMaterial);
 scene.add(ball);
 
@@ -85,14 +86,14 @@ floor.position.set(0, 0, 0); // Position the floor below the ball
 
 // Create a Cannon.js world for physics simulation
 const world = new CANNON.World();
-world.gravity.set(0, -9.82, 0);
+world.gravity.set(0, -9.81, 0);
 
 // Add the ball to the Cannon.js world
 const ballShape = new CANNON.Sphere(radius);
-const ballBody = new CANNON.Body({ mass: 1, shape: ballShape, material: new CANNON.Material() });
+const ballBody = new CANNON.Body({ mass: 0.6237, shape: ballShape, material: new CANNON.Material() });
 ballBody.position.copy(ball.position);
-ballBody.linearDamping = 0.1; // Add linear damping
-ballBody.angularDamping = 0.1; // Add angular damping
+ballBody.linearDamping = 0.4; // Add linear damping
+ballBody.angularDamping = 0.4; // Add angular damping
 world.addBody(ballBody);
 
 // Add the floor to the Cannon.js world
@@ -106,7 +107,7 @@ const hoopShape = new CANNON.Trimesh.createTorus(hoopRadius, tubeRadius, radialS
 const hoopBody = new CANNON.Body({ mass: 0, shape: hoopShape, material: new CANNON.Material() });
 hoopBody.position.set(basketballHoop.position.x, basketballHoop.position.y, basketballHoop.position.z);
 hoopBody.quaternion.copy(basketballHoop.quaternion);
-hoopBody.material.restitution = 0.8;
+hoopBody.material.restitution = 0.6;
 world.addBody(hoopBody);
 
 // Define the shape of the backboard
@@ -245,7 +246,7 @@ function animate() {
     requestAnimationFrame(animate);
 
     // Step the physics simulation
-    world.step(1 / 60);
+    world.step(1 / 30);
 
     // Update the ball's position based on physics
     ball.position.copy(ballBody.position);
@@ -378,6 +379,7 @@ function onMouseDown(event) {
     if (intersects.length > 0) {
         isDragging = true;
         ballBody.velocity.set(0, 0, 0); // Stop the physics simulation while dragging
+        raycaster.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0, 1, 0), 0), intersection);
     }
 }
 
@@ -396,7 +398,7 @@ function onMouseUp() {
         );
 
         // Apply a force to the ball to simulate the throw with randomness
-        ballBody.applyImpulse(new CANNON.Vec3(randomVelocity.x, randomVelocity.y, randomVelocity.z), ballBody.position);
+        ballBody.applyImpulse(new CANNON.Vec3(randomVelocity.x, randomVelocity.y + 10, randomVelocity.z), ballBody.position);
 
         // Apply an initial spin (angular velocity) to make the ball roll
         const angularVelocity = new CANNON.Vec3(velocity.y, 0, -velocity.x); // You can adjust this to control the spin
@@ -414,7 +416,8 @@ function onMouseMove(event) {
 
         raycaster.setFromCamera(mouse, camera);
         raycaster.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0, 1, 0), 0), intersection);
-
+	ballBody.position.y = intersection.y;
+	ball.position.y = intersection.y;
         ballBody.position.copy(intersection);
         ball.position.copy(intersection);
     }
