@@ -391,14 +391,28 @@ function onMouseUp() {
         const velocity = new THREE.Vector3().subVectors(ball.position, intersection);
         velocity.multiplyScalar(10); // Adjust the force factor here
 
-        // Add some randomness to the velocity for realism
-        const randomVelocity = new THREE.Vector3(
-            velocity.x + (Math.random() - 0.5) * 10, // Adjust the randomness as needed
-            velocity.z + (Math.random() - 0.5) * 10 // Adjust the randomness as needed
+        let targetVector = new THREE.Vector3(
+        hoopBody.position.x - ball.position.x,
+        hoopBody.position.y - ball.position.y+6,
+        hoopBody.position.z - ball.position.z
         );
+        targetVector.x = (Math.random()*4-2) + targetVector.x;
+        targetVector.z = (Math.random()*6-3) + targetVector.z;
+        // targetVector.z += 6;
+        // targetVector.z = (Math.random()*3-1.5) + targetVector.z;
+        ballBody.applyImpulse(targetVector, ballBody.position);
 
-        // Apply a force to the ball to simulate the throw with randomness
-        ballBody.applyImpulse(new CANNON.Vec3(randomVelocity.x, randomVelocity.y + 10, randomVelocity.z), ballBody.position);
+
+
+        // // Add some randomness to the velocity for realism
+        // const randomVelocity = new THREE.Vector3(
+        //     velocity.x + (Math.random() - 0.5) * 10, // Adjust the randomness as needed
+        //     velocity.z - (Math.random() - 0.5) * 10 // Adjust the randomness as needed
+        // );
+
+        // // Apply a force to the ball to simulate the throw with randomness
+
+        // ballBody.applyImpulse(new CANNON.Vec3(randomVelocity.x, randomVelocity.y + 10, randomVelocity.z), ballBody.position);
 
         // Apply an initial spin (angular velocity) to make the ball roll
         const angularVelocity = new CANNON.Vec3(velocity.y, 0, -velocity.x); // You can adjust this to control the spin
@@ -416,10 +430,12 @@ function onMouseMove(event) {
 
         raycaster.setFromCamera(mouse, camera);
         raycaster.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0, 1, 0), 0), intersection);
-	ballBody.position.y = intersection.y;
-	ball.position.y = intersection.y;
+	    // ballBody.position.y = intersection.y;
+	    // ball.position.y = intersection.y;
         ballBody.position.copy(intersection);
         ball.position.copy(intersection);
+	    ball.position.y = 1;
+	    ballBody.position.y = 1;
     }
 }
 
