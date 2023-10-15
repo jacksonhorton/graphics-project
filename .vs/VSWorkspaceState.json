@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Audio",
+    "\\textures"
   ],
-  "SelectedNode": "\\C:\\Users\\karpa\\Source\\Repos\\graphics-project",
+  "SelectedNode": "\\main.js",
   "PreviewInSolutionExplorer": false
 }

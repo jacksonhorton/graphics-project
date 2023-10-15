@@ -112,34 +112,30 @@ scene.background = cubeMap; //Generate cubemap
 
 const audioListener = new THREE.AudioListener();
 camera.add(audioListener);
+
+const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 let audioCheck = false;
+const audioLoader = new THREE.AudioLoader();
+const audio = new THREE.Audio(audioListener);
 
-//Add audio
+audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/rari.mp3', function (buffer) {
+    audio.setBuffer(buffer);
+    audio.setLoop(true);
+    audio.setVolume(0.5);
+});
+
+const audioSource = new THREE.PositionalAudio(audioListener);
+audioSource.setRefDistance(20);
+scene.add(audioSource);
+
 document.getElementById('audioButton').addEventListener('click', function () {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const audioLoader = new THREE.AudioLoader();
-    const audio = new THREE.Audio(audioListener);
-
-    audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/rari.mp3', function (buffer) {
-        audio.setBuffer(buffer);
-        audio.setLoop(true);
-        audio.setVolume(0.5);
-        audio.play();
-    });
-
     if (audioCheck) {
-        audioSource.pause();
+        audio.pause();
         audioCheck = false;
-    }
-    else {
-        audioSource.play();
+    } else {
+        audio.play();
         audioCheck = true;
     }
-
-    const audioSource = new THREE.PositionalAudio(audioListener);
-    audioSource.setRefDistance(20);
-    scene.add(audioSource);
-    audioSource.play();
 });
 
 // Set initial positions
