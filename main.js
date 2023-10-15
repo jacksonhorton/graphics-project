@@ -113,6 +113,7 @@ scene.background = cubeMap; //Generate cubemap
 const audioListener = new THREE.AudioListener();
 camera.add(audioListener);
 
+//Add audio
 document.getElementById('audioButton').addEventListener('click', function () {
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
     const audioLoader = new THREE.AudioLoader();
