@@ -99,7 +99,7 @@ backboardMesh.position.set(0, 8, -8.2); // Adjust the position as needed
 scene.add(backboardMesh);
 
 
-const backgroundTexture = loader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/makesomenoise.png'); //load texture for scene background
+const backgroundTexture = loader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/makesomenoise.jpg'); //load texture for scene background
 scene.background = backgroundTexture;
 
 // Set initial positions
