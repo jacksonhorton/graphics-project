@@ -39,6 +39,23 @@
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
+        #audioButton {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background-color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            z-index: 1;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+            #audioButton:hover {
+                background-color: lightgray;
+                transform: scale(1.05);
+            }
+
             #respawnButton:hover {
                 background-color: lightgray;
                 transform: scale(1.05);
@@ -79,6 +96,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.6.2/cannon.min.js"></script>
     <button id="respawnButton">Respawn Ball</button>
+    <button id="audioButton">Toggle Audio</button>
     <div id="controls" class="control-label">
         <label for="cameraX">Camera X:</label>
         <input type="number" id="cameraX" value="0">

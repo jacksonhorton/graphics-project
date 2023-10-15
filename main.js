@@ -110,6 +110,27 @@ const cubeMap = cubeLoader.load([
 
 scene.background = cubeMap; //Generate cubemap
 
+const audioListener = new THREE.AudioListener();
+camera.add(audioListener);
+
+document.getElementById('audioButton').addEventListener('click', function () {
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const audioLoader = new THREE.AudioLoader();
+    const audio = new THREE.Audio(audioListener);
+
+    audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/rari.mp3', function (buffer) {
+        audio.setBuffer(buffer);
+        audio.setLoop(true);
+        audio.setVolume(0.5);
+        audio.play();
+    });
+
+    const audioSource = new THREE.PositionalAudio(audioListener);
+    audioSource.setRefDistance(20);
+    scene.add(audioSource);
+    audioSource.play();
+});
+
 // Set initial positions
 ball.position.set(0, 5, 0);
 floor.position.set(0, 0, 0); // Position the floor below the ball
