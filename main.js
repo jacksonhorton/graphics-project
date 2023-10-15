@@ -80,7 +80,7 @@ const backboardDepth = 0.2; // Adjust the depth as needed
 const backboardGeometry = new THREE.BoxGeometry(backboardWidth, backboardHeight, backboardDepth);
 
 // Create a material for the backboard (you can adjust the color)
-const backboardMaterial = new THREE.MeshStandardMaterial({ color: 0x0000ff }); // Adjust the color as needed
+const backboardMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff }); // Adjust the color as needed
 
 const backboardTexture = loader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/obama.png', function (texture1) {
     backboardMaterial.map = texture1; //Assign texture
