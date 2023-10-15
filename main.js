@@ -21,7 +21,7 @@ const radius = 1;
 const segments = 32;
 const geometry = new THREE.SphereGeometry(radius, segments, segments);
 
-const texture = loader.load('http://opengameart.org/sites/default/files/balldimpled.png');
+const texture = loader.load(' https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/ball.png');
 // Create a basketball-like material
 const basketballMaterial = new THREE.MeshStandardMaterial({
     color: 0xffa500, // Set the color to orange
