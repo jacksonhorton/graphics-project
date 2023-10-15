@@ -108,7 +108,7 @@ const cubeMap = cubeLoader.load([
     'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/glock.jpg', 'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/glock.jpg'
 ])
 
-scene.background = cubeMap;
+scene.background = cubeMap; //Generate cubemap
 
 // Set initial positions
 ball.position.set(0, 5, 0);
