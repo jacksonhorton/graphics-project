@@ -37,6 +37,13 @@ scene.add(ball);
 // Create a floor
 const floorGeometry = new THREE.PlaneGeometry(20, 20, 1, 1);
 const floorMaterial = new THREE.MeshPhongMaterial({ color: 0x00ff00, side: THREE.DoubleSide });
+const floorTexture = loader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/basketball-floor-texture.jpg', function (texture) {
+    floorMaterial.map = texture;
+    floorMaterial.needsUpdate = true;
+}, undefined, function (error) {
+    console.error('Error: Could not load texture', error);
+});
+
 const floor = new THREE.Mesh(floorGeometry, floorMaterial);
 floor.rotation.x = -Math.PI / 2; // Rotate the floor to be horizontal
 scene.add(floor);
