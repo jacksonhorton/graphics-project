@@ -6,6 +6,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 let score = 0;
 
+const loader = new THREE.TextureLoader();
 // Add lights to the scene
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
@@ -19,12 +20,16 @@ scene.add(directionalLight);
 const radius = 1;
 const segments = 32;
 const geometry = new THREE.SphereGeometry(radius, segments, segments);
+
+const texture = loader.load('http://opengameart.org/sites/default/files/balldimpled.png');
 // Create a basketball-like material
 const basketballMaterial = new THREE.MeshStandardMaterial({
     color: 0xffa500, // Set the color to orange
     roughness: 0.4, // Adjust roughness as needed
     metalness: 0.2, // Adjust metalness as needed
 });
+
+basketballMaterial.map = texture;
 
 const ball = new THREE.Mesh(geometry, basketballMaterial);
 scene.add(ball);
