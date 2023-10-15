@@ -102,7 +102,7 @@ const cubeLoader = new THREE.CubeTextureLoader();
 
 //const backgroundTexture = loader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/glock.jpg'); //load texture for scene background
 
-const cubeMap = CubeTextureLoader.load([
+const cubeMap = cubeLoader.load([
     'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/glock.jpg', 'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/glock.jpg',
     'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/glock.jpg', 'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/glock.jpg',
     'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/glock.jpg', 'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/glock.jpg'
