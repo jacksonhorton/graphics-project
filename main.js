@@ -82,7 +82,7 @@ const backboardGeometry = new THREE.BoxGeometry(backboardWidth, backboardHeight,
 // Create a material for the backboard (you can adjust the color)
 const backboardMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff }); // Adjust the color as needed
 
-const backboardTexture = loader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/obama.png', function (texture1) {
+const backboardTexture = loader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/backboard.png', function (texture1) {
     backboardMaterial.map = texture1; //Assign texture
     backboardMaterial.needsUpdate = true; //Update backboard object
 }, undefined, function (error) {
@@ -98,6 +98,9 @@ backboardMesh.position.set(0, 8, -8.2); // Adjust the position as needed
 // Add the backboard to the scene
 scene.add(backboardMesh);
 
+
+const backgroundTexture = loader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/backboard.png');
+scene.background = backgroundTexture;
 
 // Set initial positions
 ball.position.set(0, 5, 0);
