@@ -98,9 +98,17 @@ backboardMesh.position.set(0, 8, -8.2); // Adjust the position as needed
 // Add the backboard to the scene
 scene.add(backboardMesh);
 
+const cubeLoader = new THREE.CubeTextureLoader();
 
-const backgroundTexture = loader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/glock.jpg'); //load texture for scene background
-scene.background = backgroundTexture;
+//const backgroundTexture = loader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/glock.jpg'); //load texture for scene background
+
+const cubeMap = CubeTextureLoader.load([
+    'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/glock.jpg', 'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/glock.jpg',
+    'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/glock.jpg', 'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/glock.jpg',
+    'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/glock.jpg', 'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/glock.jpg'
+])
+
+scene.background = cubeMap;
 
 // Set initial positions
 ball.position.set(0, 5, 0);
