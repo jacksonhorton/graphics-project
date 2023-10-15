@@ -36,10 +36,10 @@ scene.add(ball);
 
 // Create a floor
 const floorGeometry = new THREE.PlaneGeometry(20, 20, 1, 1);
-const floorMaterial = new THREE.MeshPhongMaterial({ color: 0x00ff00, side: THREE.DoubleSide });
+const floorMaterial = new THREE.MeshPhongMaterial({ color: 0xfff000, side: THREE.DoubleSide });
 const floorTexture = loader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/basketball-floor-texture.jpg', function (texture) {
-    floorMaterial.map = texture;
-    floorMaterial.needsUpdate = true;
+    floorMaterial.map = texture; //Assign texture
+    floorMaterial.needsUpdate = true; //Update floor object
 }, undefined, function (error) {
     console.error('Error: Could not load texture', error);
 });
@@ -81,6 +81,13 @@ const backboardGeometry = new THREE.BoxGeometry(backboardWidth, backboardHeight,
 
 // Create a material for the backboard (you can adjust the color)
 const backboardMaterial = new THREE.MeshStandardMaterial({ color: 0x0000ff }); // Adjust the color as needed
+
+const backboardTexture = loader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/obama.png', function (texture1) {
+    backboardMaterial.map = texture1; //Assign texture
+    backboardMaterial.needsUpdate = true; //Update backboard object
+}, undefined, function (error) {
+    console.error('Error: Could not load texture', error);
+});
 
 // Create the backboard mesh
 const backboardMesh = new THREE.Mesh(backboardGeometry, backboardMaterial);
