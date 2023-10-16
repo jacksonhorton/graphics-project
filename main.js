@@ -110,6 +110,7 @@ const cubeMap = cubeLoader.load([
 
 scene.background = cubeMap; //Generate cubemap
 
+//For audio
 const audioListener = new THREE.AudioListener();
 camera.add(audioListener);
 
