@@ -277,11 +277,92 @@ directionalLight.castShadow = true;
 ball.castShadow = true;
 floor.receiveShadow = true;
 
+let moveForward = false;
+let moveBackward = false;
+let moveLeft = false;
+let moveRight = false;
+const moveSpeed = 0.1;
+const cameraRotationSpeed = 0.01;
+const cameraZoomSpeed = 0.1;
+let isDraggingCamera = false;
+let previousMouseX, previousMouseY;
+
+document.addEventListener('mousedown', onMouseDownCamera);
+document.addEventListener('mouseup', onMouseUpCamera);
+document.addEventListener('mousemove', onMouseMoveCamera);
+document.addEventListener('keydown', onKeyDown);
+document.addEventListener('keyup', onKeyUp);
 // Variables for drag interaction
 let isDragging = false;
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 const intersection = new THREE.Vector3();
+
+function onMouseDownCamera(event) {
+    isDraggingCamera = true;
+    previousMouseX = event.clientX;
+    previousMouseY = event.clientY;
+}
+
+function onMouseUpCamera() {
+    isDraggingCamera = false;
+}
+
+function onMouseMoveCamera(event) {
+    if (isDraggingCamera) {
+        // Check if the mouse is over the ball
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObject(ball);
+
+        if (intersects.length === 0) {
+            const deltaX = (event.clientX - previousMouseX) * cameraRotationSpeed;
+            const deltaY = (event.clientY - previousMouseY) * cameraRotationSpeed;
+
+            // Rotate the camera based on mouse movement
+            camera.rotation.y -= deltaX;
+            camera.rotation.x -= deltaY;
+	    // Update the input values with the new camera rotation
+            cameraXInput.value = camera.position.x.toFixed(2);
+            cameraYInput.value = camera.position.y.toFixed(2);
+            cameraZInput.value = camera.position.z.toFixed(2);
+        }
+
+        previousMouseX = event.clientX;
+        previousMouseY = event.clientY;
+    }
+}
+
+function onKeyDown(event) {
+    if (event.key === 'ArrowUp' || event.key === 'w') {
+        moveForward = true;
+    } else if (event.key === 'ArrowDown' || event.key === 's') {
+        moveBackward = true;
+    } else if (event.key === 'ArrowLeft' || event.key === 'a') {
+        moveLeft = true;
+    } else if (event.key === 'ArrowRight' || event.key === 'd') {
+        moveRight = true;
+    }
+    // Update the input values with the new camera position
+    cameraXInput.value = camera.position.x.toFixed(2);
+    cameraYInput.value = camera.position.y.toFixed(2);
+    cameraZInput.value = camera.position.z.toFixed(2);
+}
+
+function onKeyUp(event) {
+    if (event.key === 'ArrowUp' || event.key === 'w') {
+        moveForward = false;
+    } else if (event.key === 'ArrowDown' || event.key === 's') {
+        moveBackward = false;
+    } else if (event.key === 'ArrowLeft' || event.key === 'a') {
+        moveLeft = false;
+    } else if (event.key === 'ArrowRight' || event.key === 'd') {
+        moveRight = false;
+    }
+    // Update the input values with the new camera position
+    cameraXInput.value = camera.position.x.toFixed(2);
+    cameraYInput.value = camera.position.y.toFixed(2);
+    cameraZInput.value = camera.position.z.toFixed(2);
+}
 
 
 function onWindowResize() {
@@ -378,7 +459,22 @@ function animate() {
         // Reset the hasScored flag when the ball is not in the scoring position
         hasScored = false;
     }
+    // Camera movement
+    if (moveForward) {
+        camera.position.z -= moveSpeed;
+    }
 
+    if (moveBackward) {
+        camera.position.z += moveSpeed;
+    }
+
+    if (moveLeft) {
+        camera.position.x -= moveSpeed;
+    }
+
+    if (moveRight) {
+        camera.position.x += moveSpeed;
+    }
     onWindowResize();
 
     renderer.render(scene, camera);
@@ -393,7 +489,7 @@ function updateScoreUI() {
 }
 
 // Set camera position
-camera.position.set(0, 12, 17); // Move the camera to (5, 5, 10)
+camera.position.set(0, 12, 17); 
 
 // Set the look-at point
 const target = new THREE.Vector3(0, 0, 0); // Point the camera at the center of the scene
@@ -498,6 +594,19 @@ function onMouseMove(event) {
     }
 }
 
+// Find the camera reset button element by its id
+const cameraResetButton = document.getElementById('cameraResetButton');
+
+// Add a click event listener to the button
+cameraResetButton.addEventListener('click', () => {
+    // Reset the camera's position to the initial values
+    cameraXInput.value = 0;
+    cameraYInput.value = 12;
+    cameraZInput.value = 16;
+
+    // Update the camera's position based on the input values
+    updateCameraPosition();
+});
 
 
 // Start the animation loop
