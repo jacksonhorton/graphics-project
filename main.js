@@ -11,7 +11,7 @@ const loader = new THREE.TextureLoader();
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+const directionalLight = new THREE.PointLight(0xffffff, 1.0, 100, 1);
 directionalLight.position.set(20, 20, 20);
 scene.add(directionalLight);
 
@@ -35,7 +35,7 @@ const ball = new THREE.Mesh(geometry, basketballMaterial);
 scene.add(ball);
 
 // Create a floor
-const floorGeometry = new THREE.PlaneGeometry(20, 20, 1, 1);
+const floorGeometry = new THREE.PlaneGeometry(30, 40, 1, 1);
 const floorMaterial = new THREE.MeshPhongMaterial({ color: 0xfff000, side: THREE.DoubleSide });
 const floorTexture = loader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/basketball-floor-texture.jpg', function (texture) {
     floorMaterial.map = texture; //Assign texture
@@ -63,7 +63,7 @@ const basketballHoop = new THREE.Mesh(hoopGeometry, hoopMaterial);
 // Modify the collisionResponse property of the hoopMaterial
 hoopMaterial.collisionResponse = 0.0001; // Adjust this value as needed
 
-basketballHoop.position.set(0, 6, -5);
+basketballHoop.position.set(0, 6, -6);
 
 // Rotate it to be vertical
 basketballHoop.rotation.set(Math.PI / 2, 0, 0);
@@ -93,7 +93,7 @@ const backboardTexture = loader.load('https://raw.githubusercontent.com/jacksonh
 const backboardMesh = new THREE.Mesh(backboardGeometry, backboardMaterial);
 
 // Position the backboard relative to the hoop
-backboardMesh.position.set(0, 8, -8.2); // Adjust the position as needed
+backboardMesh.position.set(0, 8, -9); // Adjust the position as needed
 
 // Add the backboard to the scene
 scene.add(backboardMesh);
@@ -141,7 +141,7 @@ document.getElementById('audioButton').addEventListener('click', function () {
 
 // Set initial positions
 ball.position.set(0, 5, 0);
-floor.position.set(0, 0, 0); // Position the floor below the ball
+floor.position.set(0, 0, 10); // Position the floor below the ball
 
 // Create a Cannon.js world for physics simulation
 const world = new CANNON.World();
@@ -186,19 +186,20 @@ world.addBody(backboardBody);
 const wallThickness = 0.1; // Adjust the thickness as needed
 const wallHeight = 15; // Adjust the height as needed
 
-const leftWallGeometry = new THREE.BoxGeometry(wallThickness, wallHeight, 20);
-const rightWallGeometry = new THREE.BoxGeometry(wallThickness, wallHeight, 20);
-const backWallGeometry = new THREE.BoxGeometry(20, wallHeight, wallThickness);
-const frontWallGeometry = new THREE.BoxGeometry(20, wallHeight, wallThickness);
+const leftWallGeometry = new THREE.BoxGeometry(wallThickness, wallHeight, 30);
+const rightWallGeometry = new THREE.BoxGeometry(wallThickness, wallHeight, 30);
+const backWallGeometry = new THREE.BoxGeometry(30, wallHeight, wallThickness);
+const frontWallGeometry = new THREE.BoxGeometry(30, wallHeight, wallThickness);
 
 const invisibleWallMaterial = new THREE.MeshBasicMaterial({ visible: false });
+const visibleWallMaterial = new THREE.MeshBasicMaterial({ visible: true, opacity: 0.5, transparent: true });
 
 const leftWall = new THREE.Mesh(leftWallGeometry, invisibleWallMaterial);
-leftWall.position.set(-10, wallHeight / 2, 0);
+leftWall.position.set(-15, wallHeight / 2, 0);
 scene.add(leftWall);
 
 const rightWall = new THREE.Mesh(rightWallGeometry, invisibleWallMaterial);
-rightWall.position.set(10, wallHeight/2, 0);
+rightWall.position.set(15, wallHeight/2, 0);
 scene.add(rightWall);
 
 const backWall = new THREE.Mesh(backWallGeometry, invisibleWallMaterial);
@@ -206,7 +207,7 @@ backWall.position.set(0, wallHeight/2, -10);
 scene.add(backWall);
 
 const frontWall = new THREE.Mesh(frontWallGeometry, invisibleWallMaterial);
-frontWall.position.set(0, wallHeight/2, 10);
+frontWall.position.set(0, wallHeight/2, 15);
 scene.add(frontWall);
 
 // Create Cannon.js bodies for the walls
@@ -249,15 +250,15 @@ frontWallBody.collisionFilterMask = 1; // Collide with the default group (ball)
 // Add collision event listeners for the ball
 ballBody.addEventListener("collide", function (e) {
     // Calculate the new velocity based on the collision normal (e.contact.ni) and restitution
-    const restitution = 0.2; // Adjust this value as needed
+    const restitution = 1.0; // Adjust this value as needed
     const speed = ballBody.velocity.length();
     const newVelocity = new CANNON.Vec3().copy(e.contact.ni).mult(speed * restitution);
     ballBody.velocity.copy(newVelocity);
 });
 
 // Set restitution (bounciness) properties
-ballBody.material.restitution = 0.6; // Adjust the restitution value as needed
-floorBody.material.restitution = 0.6; // Adjust the restitution value as needed
+ballBody.material.restitution = 0.8; // Adjust the restitution value as needed
+floorBody.material.restitution = 1.0; // Adjust the restitution value as needed
 
 // Find the respawn button element by its id
 const respawnButton = document.getElementById('respawnButton');
@@ -299,6 +300,7 @@ const mouse = new THREE.Vector2();
 const intersection = new THREE.Vector3();
 
 function onMouseDownCamera(event) {
+    if (!mouseCameraControlsEnabled) { return; }
     isDraggingCamera = true;
     previousMouseX = event.clientX;
     previousMouseY = event.clientY;
@@ -488,6 +490,13 @@ function updateScoreUI() {
     }
 }
 
+// camera mouse controls toggle
+var checkbox = document.querySelector("input[name=mouseControls]");
+var mouseCameraControlsEnabled = checkbox.checked;
+checkbox.addEventListener('change', function() {
+    mouseCameraControlsEnabled = this.checked;
+});
+
 // Set camera position
 camera.position.set(0, 12, 17); 
 
@@ -556,16 +565,6 @@ function onMouseUp() {
         // targetVector.z += 6;
         // targetVector.z = (Math.random()*3-1.5) + targetVector.z;
         ballBody.applyImpulse(targetVector, ballBody.position);
-
-
-
-        // // Add some randomness to the velocity for realism
-        // const randomVelocity = new THREE.Vector3(
-        //     velocity.x + (Math.random() - 0.5) * 10, // Adjust the randomness as needed
-        //     velocity.z - (Math.random() - 0.5) * 10 // Adjust the randomness as needed
-        // );
-
-        // // Apply a force to the ball to simulate the throw with randomness
 
         // ballBody.applyImpulse(new CANNON.Vec3(randomVelocity.x, randomVelocity.y + 10, randomVelocity.z), ballBody.position);
 
