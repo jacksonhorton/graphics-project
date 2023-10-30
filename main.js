@@ -103,9 +103,9 @@ const cubeLoader = new THREE.CubeTextureLoader();
 //const backgroundTexture = loader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/space.png'); //load texture for scene background
 
 const cubeMap = cubeLoader.load([
-    'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/glock.jpg', 'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/glock.jpg',
-    'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/glock.jpg', 'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/glock.jpg',
-    'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/glock.jpg', 'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/glock.jpg'
+    'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/space/right.png', 'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/space/left.png',
+    'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/space/top.png', 'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/space/bottom.png',
+    'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/space/front.png', 'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/textures/space/back.png'
 ])
 
 scene.background = cubeMap; //Generate cubemap
