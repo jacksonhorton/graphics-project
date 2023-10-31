@@ -280,6 +280,7 @@ let audioCheck = false;
 const audioLoader = new THREE.AudioLoader();
 const music = new THREE.Audio(audioListener);
 const bounce = new THREE.PositionalAudio(audioListener);
+const grab = new THREE.PositionalAudio(audioListener);
 
 
 audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/rari.mp3', function (buffer) {
@@ -294,8 +295,8 @@ audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-proje
     })
 
     audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/grab.mp3', function (buffer) {
-        bounce.setBuffer(buffer);
-        bounce.setVolume(0.5);
+        grab.setBuffer(buffer);
+        grab.setVolume(0.5);
     })
 
 document.getElementById('audioButton').addEventListener('click', function () {
