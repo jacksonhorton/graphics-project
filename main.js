@@ -283,7 +283,7 @@ const bounce = new THREE.PositionalAudio(audioListener);
 const grab = new THREE.Audio(audioListener);
 
 
-audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/rari.mp3', function (buffer) {
+audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/music.mp3', function (buffer) {
     music.setBuffer(buffer);
     music.setLoop(true);
     music.setVolume(0.25);
