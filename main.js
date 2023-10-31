@@ -293,6 +293,11 @@ audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-proje
         bounce.setVolume(0.5);
     })
 
+    audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/grab.mp3', function (buffer) {
+        bounce.setBuffer(buffer);
+        bounce.setVolume(0.5);
+    })
+
 document.getElementById('audioButton').addEventListener('click', function () {
     if (audioCheck) {
         music.pause();
@@ -548,7 +553,7 @@ function onMouseDown(event) {
         isDragging = true;
         ballBody.velocity.set(0, 0, 0); // Stop the physics simulation while dragging
         raycaster.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0, 1, 0), 0), intersection);
-        bounce.play();
+        grab.play();
     }
 }
 
