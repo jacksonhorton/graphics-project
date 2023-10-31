@@ -110,44 +110,6 @@ const cubeMap = cubeLoader.load([
 
 scene.background = cubeMap; //Generate cubemap
 
-//For audio
-const audioListener = new THREE.AudioListener();
-camera.add(audioListener);
-
-const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-let audioCheck = false;
-const audioLoader = new THREE.AudioLoader();
-const audio = new THREE.Audio(audioListener);
-
-audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/rari.mp3', function (buffer) {
-    audio.setBuffer(buffer);
-    audio.setLoop(true);
-    audio.setVolume(0.5);
-});
-
-const intersects = raycaster.intersectObject(ball);
-
-if (intersects.length > 0) {
-    audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/bounce.wav', function (buffer) {
-        audio.setBuffer(buffer);
-        audio.setVolume(0.5);
-    })
-}
-
-const audioSource = new THREE.PositionalAudio(audioListener);
-audioSource.setRefDistance(20);
-scene.add(audioSource);
-
-document.getElementById('audioButton').addEventListener('click', function () {
-    if (audioCheck) {
-        audio.pause();
-        audioCheck = false;
-    } else {
-        audio.play();
-        audioCheck = true;
-    }
-});
-
 // Set initial positions
 ball.position.set(0, 5, 0);
 floor.position.set(0, 0, 10); // Position the floor below the ball
@@ -307,6 +269,44 @@ let isDragging = false;
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 const intersection = new THREE.Vector3();
+
+//For audio
+const audioListener = new THREE.AudioListener();
+camera.add(audioListener);
+
+const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+let audioCheck = false;
+
+const audioLoader = new THREE.AudioLoader();
+const music = new THREE.Audio(audioListener);
+const bounce = new THREE.PositionalAudio(audioListener);
+
+
+audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/rari.mp3', function (buffer) {
+    music.setBuffer(buffer);
+    music.setLoop(true);
+    music.setVolume(0.5);
+});
+
+const intersects = raycaster.intersectObject(ball);
+
+if (intersects.length > 0) {
+    audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/bounce.wav', function (buffer) {
+        bounce.setBuffer(buffer);
+        bounce.setVolume(0.5);
+        bounce.play();
+    })
+}
+
+document.getElementById('audioButton').addEventListener('click', function () {
+    if (audioCheck) {
+        bounce.pause();
+        audioCheck = false;
+    } else {
+        bounce.play();
+        audioCheck = true;
+    }
+});
 
 function onMouseDownCamera(event) {
     if (!mouseCameraControlsEnabled) { return; }
