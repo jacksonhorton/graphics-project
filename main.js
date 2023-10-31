@@ -288,7 +288,7 @@ const whoosh = new THREE.Audio(audioListener);
 audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/music.mp3', function (buffer) {
     music.setBuffer(buffer);
     music.setLoop(true);
-    music.setVolume(0.10);
+    music.setVolume(0.20);
 });
 
 audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/bounce.mp3', function (buffer) {
@@ -308,7 +308,7 @@ audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-proje
 
     audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/whoosh.mp3', function (buffer) {
         whoosh.setBuffer(buffer);
-        whoosh.setVolume(0.75);
+        whoosh.setVolume(0.5);
     })
 
 document.getElementById('audioButton').addEventListener('click', function () {
