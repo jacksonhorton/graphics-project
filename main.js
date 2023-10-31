@@ -281,12 +281,14 @@ const audioLoader = new THREE.AudioLoader();
 const music = new THREE.Audio(audioListener);
 const bounce = new THREE.PositionalAudio(audioListener);
 const grab = new THREE.Audio(audioListener);
+const swish = new THREE.Audio(audioListener);
+const whoosh = new THREE.Audio(audioListener);
 
 
 audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/music.mp3', function (buffer) {
     music.setBuffer(buffer);
     music.setLoop(true);
-    music.setVolume(0.25);
+    music.setVolume(0.10);
 });
 
 audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/bounce.mp3', function (buffer) {
@@ -294,9 +296,19 @@ audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-proje
         bounce.setVolume(0.5);
     })
 
-    audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/grab.mp3', function (buffer) {
+audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/grab.mp3', function (buffer) {
         grab.setBuffer(buffer);
         grab.setVolume(0.75);
+    })
+
+audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/swish.mp3', function (buffer) {
+        swish.setBuffer(buffer);
+        swish.setVolume(0.75);
+    })
+
+    audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/whoosh.mp3', function (buffer) {
+        whoosh.setBuffer(buffer);
+        whoosh.setVolume(0.75);
     })
 
 document.getElementById('audioButton').addEventListener('click', function () {
@@ -449,6 +461,7 @@ function animate() {
 
             // Set the flag to indicate that the ball has scored in this interaction
             hasScored = true;
+            swish.play();
 
             // Call the function to update the UI immediately after increasing the score
             updateScoreUI();
@@ -561,7 +574,7 @@ function onMouseDown(event) {
 function onMouseUp() {
     if (isDragging) {
         isDragging = false;
-
+        
         // Calculate a velocity based on the mouse movement
         const velocity = new THREE.Vector3().subVectors(ball.position, intersection);
         velocity.multiplyScalar(10); // Adjust the force factor here
@@ -582,6 +595,7 @@ function onMouseUp() {
         // Apply an initial spin (angular velocity) to make the ball roll
         const angularVelocity = new CANNON.Vec3(velocity.y, 0, -velocity.x); // You can adjust this to control the spin
         ballBody.angularVelocity.copy(angularVelocity);
+        whoosh.play();
     }
 }
 
