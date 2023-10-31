@@ -288,22 +288,17 @@ audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-proje
     music.setVolume(0.5);
 });
 
-const intersects = raycaster.intersectObject(ball);
-
-if (intersects.length > 0) {
-    audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/bounce.wav', function (buffer) {
+audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/bounce.mp3', function (buffer) {
         bounce.setBuffer(buffer);
         bounce.setVolume(0.5);
-        bounce.play();
     })
-}
 
 document.getElementById('audioButton').addEventListener('click', function () {
     if (audioCheck) {
-        bounce.pause();
+        music.pause();
         audioCheck = false;
     } else {
-        bounce.play();
+        music.play();
         audioCheck = true;
     }
 });
@@ -553,6 +548,7 @@ function onMouseDown(event) {
         isDragging = true;
         ballBody.velocity.set(0, 0, 0); // Stop the physics simulation while dragging
         raycaster.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0, 1, 0), 0), intersection);
+        bounce.play();
     }
 }
 
