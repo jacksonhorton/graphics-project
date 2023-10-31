@@ -125,6 +125,15 @@ audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-proje
     audio.setVolume(0.5);
 });
 
+const intersects = raycaster.intersectObject(ball);
+
+if (intersects.length > 0) {
+    audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/bounce.wav', function (buffer) {
+        audio.setBuffer(buffer);
+        audio.setVolume(0.5);
+    })
+}
+
 const audioSource = new THREE.PositionalAudio(audioListener);
 audioSource.setRefDistance(20);
 scene.add(audioSource);
