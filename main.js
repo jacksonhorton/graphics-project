@@ -457,11 +457,11 @@ function animate() {
     {
         if (!hasScored) {
             // Increase the score
+            swish.play();
             score++;
 
             // Set the flag to indicate that the ball has scored in this interaction
             hasScored = true;
-            swish.play();
 
             // Call the function to update the UI immediately after increasing the score
             updateScoreUI();
