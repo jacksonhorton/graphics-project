@@ -233,6 +233,10 @@ floorBody.addEventListener("collide", function (e) {
     randomBounce.play();
 });
 
+backboardBody.addEventListener("collide", function (e) {
+    backboard.play();
+});
+
 // Set restitution (bounciness) properties
 ballBody.material.restitution = 0.8; // Adjust the restitution value as needed
 floorBody.material.restitution = 1.0; // Adjust the restitution value as needed
@@ -296,8 +300,7 @@ const bounces = [];
 const grab = new THREE.Audio(audioListener);
 const swish = new THREE.Audio(audioListener);
 const whoosh = new THREE.Audio(audioListener);
-
-
+const backboard = new THREE.Audio(audioListener);
 
 audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/music.mp3', function (buffer) {
     music.setBuffer(buffer);
@@ -324,10 +327,15 @@ audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-proje
         swish.setVolume(0.75);
     })
 
-    audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/whoosh.mp3', function (buffer) {
+audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/whoosh.mp3', function (buffer) {
         whoosh.setBuffer(buffer);
         whoosh.setVolume(0.5);
-    })
+})
+
+audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/backboard.mp3', function (buffer) {
+    backboard.setBuffer(buffer);
+    backboard.setVolume(0.5);
+})
 
 document.getElementById('audioButton').addEventListener('click', function () {
     if (audioCheck) {
