@@ -287,7 +287,10 @@ const audioLoader = new THREE.AudioLoader();
 const music = new THREE.Audio(audioListener);
 const bounceURLS = [
     'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/bounce1.mp3',
-    'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/bounce2.mp3'
+    'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/bounce2.mp3',
+    'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/bounce3.mp3',
+    'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/bounce4.mp3',
+    'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/bounce5.mp3'
 ];
 const bounces = [];
 const grab = new THREE.Audio(audioListener);
@@ -306,7 +309,7 @@ for (const soundURL of bounceURLS) {
     const bounce = new THREE.Audio(audioListener);
     audioLoader.load(soundURL, function (buffer) {
         bounce.setBuffer(buffer);
-        bounce.setVolume(0.5);
+        bounce.setVolume(0.25);
     });
     bounces.push(bounce);
 }
