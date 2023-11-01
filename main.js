@@ -229,13 +229,8 @@ ballBody.addEventListener("collide", function (e) {
 
 // Add collision event listeners for the floor
 floorBody.addEventListener("collide", function (e) {
-    // Calculate the new velocity based on the collision normal (e.contact.ni) and restitution
-    const randomBounce = bounces[Math.random() * (bounces[1] * bounces[0]) + bounces[0]];
-    audioLoader.load(randomBounce, function (buffer) {
-        randomBounce.setBuffer(buffer);
-        randomBounce.setVolume(0.5);
-        randomBounce.play();
-    })
+    const randomBounce = bounces[Math.floor(Math.random() * bounces.length)];
+    randomBounce.play();
 });
 
 // Set restitution (bounciness) properties
@@ -290,10 +285,11 @@ let audioCheck = false;
 
 const audioLoader = new THREE.AudioLoader();
 const music = new THREE.Audio(audioListener);
-const bounces = [
-    bounce1 = new THREE.Audio(audioListener),
-    bounce2 = new THREE.Audio(audioListener),
+const bounceURLS = [
+    'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/bounce1.mp3',
+    'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/bounce2.mp3'
 ];
+const bounces = [];
 const grab = new THREE.Audio(audioListener);
 const swish = new THREE.Audio(audioListener);
 const whoosh = new THREE.Audio(audioListener);
@@ -306,15 +302,14 @@ audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-proje
     music.setVolume(0.20);
 });
 
-audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/bounce1.mp3', function (buffer) {
-        bounce1.setBuffer(buffer);
-        bounce1.setVolume(0.5);
-})
-
-audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/bounce2.mp3', function (buffer) {
-    bounce2.setBuffer(buffer);
-    bounce2.setVolume(0.5);
-})
+for (const soundURL of bounceURLS) {
+    const bounce = new THREE.Audio(audioListener);
+    audioLoader.load(soundURL, function (buffer) {
+        bounce.setBuffer(buffer);
+        bounce.setVolume(0.5);
+    });
+    bounces.push(bounce);
+}
 
 audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/grab.mp3', function (buffer) {
         grab.setBuffer(buffer);
