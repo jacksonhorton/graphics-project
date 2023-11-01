@@ -227,6 +227,12 @@ ballBody.addEventListener("collide", function (e) {
     ballBody.velocity.copy(newVelocity);
 });
 
+// Add collision event listeners for the floor
+floorBody.addEventListener("collide", function (e) {
+    // Calculate the new velocity based on the collision normal (e.contact.ni) and restitution
+    bounce.play();
+});
+
 // Set restitution (bounciness) properties
 ballBody.material.restitution = 0.8; // Adjust the restitution value as needed
 floorBody.material.restitution = 1.0; // Adjust the restitution value as needed
@@ -283,6 +289,7 @@ const bounce = new THREE.PositionalAudio(audioListener);
 const grab = new THREE.Audio(audioListener);
 const swish = new THREE.Audio(audioListener);
 const whoosh = new THREE.Audio(audioListener);
+
 
 
 audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/music.mp3', function (buffer) {
