@@ -658,6 +658,11 @@ cameraResetButton.addEventListener('click', () => {
     updateCameraPosition();
 });
 
-
+//Changes Gravity
+const gravityInput = document.getElementById("gravity");
+gravityInput.addEventListener("input", () => {
+    const newGravity = -parseFloat(gravityInput.value); // Invert the value as Cannon.js uses negative Y for gravity
+    world.gravity.set(0, newGravity, 0);
+});
 // Start the animation loop
 animate();
