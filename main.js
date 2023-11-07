@@ -434,7 +434,6 @@ let needsReset = false;
 // Add collision detection for the ball and barriers in the animate function
 function animate() {
     requestAnimationFrame(animate);
-
     // Step the physics simulation
     world.step(1 / 30);
 
@@ -484,13 +483,16 @@ function animate() {
         if (!hasScored) {
             // Increase the score
             swish.play();
-            document.getElementById("player1Score").textContent = "Player 1: " + player1Score;
-  	    document.getElementById("player2Score").textContent = "Player 2: " + player2Score;
+	    console.log(player2Active);
+	    console.log(gameActive);
 	    if(player1Active && gameActive) {
-                player1Score++;
+		player1Score++;
+		console.log(player1Score);
 	    } else if(player2Active && gameActive) {
 		player2Score++;		
             }
+	    document.getElementById("player1Score").textContent = "Player 1: " + player1Score;
+  	    document.getElementById("player2Score").textContent = "Player 2: " + player2Score;
             // Set the flag to indicate that the ball has scored in this interaction
             hasScored = true;
 	    needsReset = true;
@@ -533,13 +535,6 @@ function animate() {
     renderer.render(scene, camera);
 }
 
-function updateScoreUI() {
-    // Replace 'scoreDisplay' with the ID or element where you want to display the score
-    const scoreDisplay = document.getElementById('scoreboard');
-    if (scoreDisplay) {
-        scoreDisplay.textContent = `Score: ${score}`;
-    }
-}
 
 // Variables to keep track of game state
 let player1Score = 0;
@@ -553,7 +548,7 @@ function startGame() {
   if (gameActive) {
     return; // Game is already active
   }
-
+  
   gameActive = true;
   player1Score = 0;
   player2Score = 0;
@@ -569,16 +564,16 @@ function startGame() {
   setTimeout(() => {
     gameActive = false;
     document.getElementById("winner").textContent = "Switching to Player 2";
+    gameActive = true;
+    player2Active = true;
+    player1Active = false;
     setTimeout(() => {
-      gameActive = true;
-      player2Active = true;
-      player1Active = false;
       // Indicate player 2's turn
       document.getElementById("winner").textContent = "Player 2's Turn";
 
       // Start a 30-second timer for player 2
       setTimeout(() => {
-        gameActive = false;
+        gameActive = true;
 
         // Determine the winner and display the result
         if (player1Score > player2Score) {
