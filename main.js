@@ -484,13 +484,15 @@ function animate() {
         if (!hasScored) {
             // Increase the score
             swish.play();
-            score++;
-
+            document.getElementById("player1Score").textContent = "Player 1: " + player1Score;
+  	    document.getElementById("player2Score").textContent = "Player 2: " + player2Score;
+	    if(player1Active) {
+                player1Score++;
+	    } else if(player2Active) {
+		player2Score++;		
+            }
             // Set the flag to indicate that the ball has scored in this interaction
             hasScored = true;
-
-            // Call the function to update the UI immediately after increasing the score
-            updateScoreUI();
 	    needsReset = true;
 	    // Check if the ball needs to be reset with a delay
         if (needsReset) {
@@ -538,6 +540,63 @@ function updateScoreUI() {
         scoreDisplay.textContent = `Score: ${score}`;
     }
 }
+
+// Variables to keep track of game state
+let player1Score = 0;
+let player2Score = 0;
+let player1Active = false;
+let player2Active = false;
+let gameActive = false;
+
+// Function to start the game
+function startGame() {
+  if (gameActive) {
+    return; // Game is already active
+  }
+
+  gameActive = true;
+  player1Score = 0;
+  player2Score = 0;
+  player1Active = true;
+  // Display the initial scores
+  document.getElementById("player1Score").textContent = "Player 1: " + player1Score;
+  document.getElementById("player2Score").textContent = "Player 2: " + player2Score;
+
+  // Indicate player 1's turn
+  document.getElementById("winner").textContent = "Player 1's Turn";
+
+  // Start a 30-second timer for player 1
+  setTimeout(() => {
+    gameActive = false;
+    document.getElementById("winner").textContent = "Switching to Player 2";
+    setTimeout(() => {
+      gameActive = true;
+      player2Active = true;
+      player1Active = false;
+      // Indicate player 2's turn
+      document.getElementById("winner").textContent = "Player 2's Turn";
+
+      // Start a 30-second timer for player 2
+      setTimeout(() => {
+        gameActive = false;
+
+        // Determine the winner and display the result
+        if (player1Score > player2Score) {
+          document.getElementById("winner").textContent = "Winner: Player 1";
+        } else if (player2Score > player1Score) {
+          document.getElementById("winner").textContent = "Winner: Player 2";
+        } else {
+          document.getElementById("winner").textContent = "It's a tie!";
+        }
+      }, 30000); // 30 seconds for player 2
+    }, 1000); // 1-second delay before player 2's turn
+  }, 30000); // 30 seconds for player 1
+  player2Active = false;
+}
+
+// Event listener for the "Start Game" button
+document.getElementById("startGameButton").addEventListener("click", startGame);
+
 
 // camera mouse controls toggle
 var checkbox = document.querySelector("input[name=mouseControls]");
