@@ -486,9 +486,9 @@ function animate() {
             swish.play();
             document.getElementById("player1Score").textContent = "Player 1: " + player1Score;
   	    document.getElementById("player2Score").textContent = "Player 2: " + player2Score;
-	    if(player1Active) {
+	    if(player1Active && gameActive) {
                 player1Score++;
-	    } else if(player2Active) {
+	    } else if(player2Active && gameActive) {
 		player2Score++;		
             }
             // Set the flag to indicate that the ball has scored in this interaction
@@ -591,7 +591,6 @@ function startGame() {
       }, 30000); // 30 seconds for player 2
     }, 1000); // 1-second delay before player 2's turn
   }, 30000); // 30 seconds for player 1
-  player2Active = false;
 }
 
 // Event listener for the "Start Game" button
