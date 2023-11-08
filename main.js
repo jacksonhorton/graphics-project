@@ -437,6 +437,11 @@ function onWindowResize() {
 // Add the event listener for window resize
 window.addEventListener('resize', onWindowResize);
 
+// throw power bar setup code
+let lastMouseMove = Date.now();
+const powerBar = document.querySelector('.bar');
+const powerBarContainer = document.querySelector('.throwPowerBox')
+
 let needsReset = false;
 // Add collision detection for the ball and barriers in the animate function
 function animate() {
@@ -538,6 +543,29 @@ function animate() {
         camera.position.x += moveSpeed;
     }
     onWindowResize();
+
+    // shot power bar update
+    if (isDragging && lastMouseMove + 200 < Date.now()) { // if it has been 100ms since last mouse movement...
+        powerBarContainer.style.visibility = 'visible';
+        // get height from power bar
+        let currentHeight = Number(powerBar.style.height.replace("%",""));
+        // increment power
+        currentHeight+=2;
+        // check not greater than 100%
+        if (currentHeight > 100) {currentHeight = 100;}
+        // update ui
+        powerBar.style.height = `${currentHeight}%`;
+    }
+    else {
+        // is not dragging, hide power bar
+        if (isDragging) {
+            powerBarContainer.style.visibility = 'visible';
+        }
+        else {
+            powerBarContainer.style.visibility = 'hidden';
+        }
+        powerBar.style.height = "0%";
+    }
 
     renderer.render(scene, camera);
 }
@@ -683,19 +711,7 @@ function onMouseUp() {
         targetVector.x /=2;
         targetVector.y = 10;
         targetVector.z /= 2;
-
-        // let targetVector = new THREE.Vector3(
-        // hoopBody.position.x - ball.position.x,
-        // hoopBody.position.y - ball.position.y+6,
-        // hoopBody.position.z - ball.position.z
-        // );
-        // targetVector.x = (Math.random()*4-2) + targetVector.x;
-        // targetVector.z = (Math.random()*6-3) + targetVector.z;
-        // targetVector.z += 6;
-        // targetVector.z = (Math.random()*3-1.5) + targetVector.z;
         ballBody.applyImpulse(targetVector, ballBody.position);
-
-        // ballBody.applyImpulse(new CANNON.Vec3(randomVelocity.x, randomVelocity.y + 10, randomVelocity.z), ballBody.position);
 
         // Apply an initial spin (angular velocity) to make the ball roll
         const angularVelocity = new CANNON.Vec3(velocity.y, 0, -velocity.x); // You can adjust this to control the spin
@@ -715,6 +731,9 @@ function distanceToHoop(body) {
 
 
 function onMouseMove(event) {
+    // update the time of the last mouse movement
+    lastMouseMove = Date.now();
+
     if (isDragging) {
         const x = (event.clientX / window.innerWidth) * 2 - 1;
         const y = -(event.clientY / window.innerHeight) * 2 + 1;
