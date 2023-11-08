@@ -107,6 +107,17 @@
     	#player2Score {
         margin-left: 20px; /* Adjust the margin as needed */
     	}
+
+        /* Power bar */
+        .throwPowerBox {
+            bottom: 4em;
+            right: 4em;
+            height: 10em;
+            width: 1em;
+            position: absolute;
+            padding: 10px;
+            border: 2px white solid;
+        }
     </style>
 </head>
 <body>
@@ -133,6 +144,7 @@
         <label for="mouseCameraControlsEnabled">Move camera with mouse</label>
         <input type="checkbox" id="mouseCameraControlsEnabled" name="mouseControls" checked>
 	<br>
+
 	<label for="gravity">Gravity:</label>
 	<input type="number" id="gravity" value="9.81" min="0" max="20">
     </div>
@@ -140,6 +152,10 @@
     <span id="player1Score" class="score">Player 1: 0</span>
     <span id="winner" class="winner">Winner:</span>
     <span id="player2Score" class="score">Player 2: 0</span>
+    </div>
+
+    <div class="throwPowerBox">
+
     </div>
 
     <script src="main.js"></script>

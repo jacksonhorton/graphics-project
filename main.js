@@ -157,6 +157,9 @@ world.addBody(backboardBody);
 const wallThickness = 0.1; // Adjust the thickness as needed
 const wallHeight = 15; // Adjust the height as needed
 
+const courtDepth = 30;
+const courtWidth = 30;
+
 const leftWallGeometry = new THREE.BoxGeometry(wallThickness, wallHeight, 30);
 const rightWallGeometry = new THREE.BoxGeometry(wallThickness, wallHeight, 30);
 const backWallGeometry = new THREE.BoxGeometry(30, wallHeight, wallThickness);
@@ -217,6 +220,10 @@ backWallBody.collisionFilterMask = 1; // Collide with the default group (ball)
 
 frontWallBody.collisionFilterGroup = 5; // Custom group for the front wall
 frontWallBody.collisionFilterMask = 1; // Collide with the default group (ball)
+
+// Set restitution (bounciness) properties
+ballBody.material.restitution = 0.85; // Adjust the restitution value as needed
+floorBody.material.restitution = 1.0; // Adjust the restitution value as needed
 
 // Add collision event listeners for the ball
 ballBody.addEventListener("collide", function (e) {
@@ -444,30 +451,30 @@ function animate() {
     const ballPosition = ballBody.position;
 
     // Check left wall collision
-    if (ballPosition.x - radius < -9.9) {
-        ballPosition.x = -9.9 + radius; // Prevent the ball from going beyond the left wall
+    if (ballPosition.x - radius < -courtWidth/2+0.1) {
+        ballPosition.x = -courtWidth/2+0.1 + radius; // Prevent the ball from going beyond the left wall
         ballBody.position.copy(ballPosition);
         ballBody.velocity.x = 0; // Set the ball's horizontal velocity to 0 on collision
     }
 
     // Check right wall collision
-    if (ballPosition.x + radius > 9.9) {
-        ballPosition.x = 9.9 - radius; // Prevent the ball from going beyond the right wall
+    if (ballPosition.x + radius > courtWidth/2-0.1) {
+        ballPosition.x = courtWidth/2-0.1 - radius; // Prevent the ball from going beyond the right wall
         ballBody.position.copy(ballPosition);
         ballBody.velocity.x = 0; // Set the ball's horizontal velocity to 0 on collision
     }
 
     // Check back wall collision
-    if (ballPosition.z - radius < -9.9) {
-        ballPosition.z = -9.9 + radius; // Prevent the ball from going beyond the back wall
+    if (ballPosition.z - radius < -courtDepth/2+0.1) {
+        ballPosition.z = -courtDepth/2+0.1 + radius; // Prevent the ball from going beyond the back wall
         ballBody.position.copy(ballPosition);
         ballBody.velocity.z = 0; // Set the ball's vertical velocity to 0 on collision
     }
 
     // Check front wall collision
-    if (ballPosition.z + radius > 9.9) {
-        ballPosition.z = 9.9 - radius; // Prevent the ball from going beyond the front wall
-        ballBody.position.copy(ballPosition);
+    if (ballPosition.z + radius > courtDepth/2-0.1) {
+        ballPosition.z = courtDepth/2-0.1 - radius; // Prevent the ball from going beyond the front wall
+            ballBody.position.copy(ballPosition);
         ballBody.velocity.z = 0; // Set the ball's vertical velocity to 0 on collision
     }
     
@@ -671,13 +678,19 @@ function onMouseUp() {
         const velocity = new THREE.Vector3().subVectors(ball.position, intersection);
         velocity.multiplyScalar(10); // Adjust the force factor here
 
-        let targetVector = new THREE.Vector3(
-        hoopBody.position.x - ball.position.x,
-        hoopBody.position.y - ball.position.y+6,
-        hoopBody.position.z - ball.position.z
-        );
-        targetVector.x = (Math.random()*4-2) + targetVector.x;
-        targetVector.z = (Math.random()*6-3) + targetVector.z;
+        let targetVector = distanceToHoop(ball);
+
+        targetVector.x /=2;
+        targetVector.y = 10;
+        targetVector.z /= 2;
+
+        // let targetVector = new THREE.Vector3(
+        // hoopBody.position.x - ball.position.x,
+        // hoopBody.position.y - ball.position.y+6,
+        // hoopBody.position.z - ball.position.z
+        // );
+        // targetVector.x = (Math.random()*4-2) + targetVector.x;
+        // targetVector.z = (Math.random()*6-3) + targetVector.z;
         // targetVector.z += 6;
         // targetVector.z = (Math.random()*3-1.5) + targetVector.z;
         ballBody.applyImpulse(targetVector, ballBody.position);
@@ -691,6 +704,14 @@ function onMouseUp() {
     }
 }
 
+function distanceToHoop(body) {
+    let distance = new THREE.Vector3(
+        hoopBody.position.x - body.position.x,
+        0,
+        hoopBody.position.z - body.position.z);
+
+    return distance;
+}
 
 
 function onMouseMove(event) {
