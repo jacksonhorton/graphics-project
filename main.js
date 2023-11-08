@@ -543,8 +543,21 @@ let player1Active = false;
 let player2Active = false;
 let gameActive = false;
 
+function resetGame() {
+    player1Score = 0;
+    player2Score = 0;
+    player1Active = false;
+    player2Active = false;
+    gameActive = false;
+
+    // Display the initial scores
+    document.getElementById("player1Score").textContent = "Player 1: " + player1Score;
+    document.getElementById("player2Score").textContent = "Player 2: " + player2Score;
+}
+
 // Function to start the game
 function startGame() {
+  resetGame();
   if (gameActive) {
     return; // Game is already active
   }
@@ -573,7 +586,7 @@ function startGame() {
 
       // Start a 30-second timer for player 2
       setTimeout(() => {
-        gameActive = true;
+        gameActive = false;
 
         // Determine the winner and display the result
         if (player1Score > player2Score) {
