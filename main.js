@@ -495,8 +495,6 @@ function animate() {
         if (!hasScored) {
             // Increase the score
             swish.play();
-	    console.log(player2Active);
-	    console.log(gameActive);
 	    if(player1Active && gameActive) {
 		player1Score++;
 		console.log(player1Score);
@@ -550,7 +548,7 @@ function animate() {
         // get height from power bar
         let currentHeight = Number(powerBar.style.height.replace("%",""));
         // increment power
-        currentHeight+=2;
+        currentHeight+=1.5;
         // check not greater than 100%
         if (currentHeight > 100) {currentHeight = 100;}
         // update ui
@@ -706,11 +704,13 @@ function onMouseUp() {
         const velocity = new THREE.Vector3().subVectors(ball.position, intersection);
         velocity.multiplyScalar(10); // Adjust the force factor here
 
+        let shotPower = Number(powerBar.style.height.replace("%",""));
+
         let targetVector = distanceToHoop(ball);
 
-        targetVector.x /=2;
-        targetVector.y = 10;
-        targetVector.z /= 2;
+        targetVector.x *= shotPower;
+        targetVector.y = 5+(.09*shotPower);
+        targetVector.z *= shotPower;
         ballBody.applyImpulse(targetVector, ballBody.position);
 
         // Apply an initial spin (angular velocity) to make the ball roll
@@ -722,9 +722,9 @@ function onMouseUp() {
 
 function distanceToHoop(body) {
     let distance = new THREE.Vector3(
-        hoopBody.position.x - body.position.x,
+        (hoopBody.position.x - body.position.x)/1.5/100,
         0,
-        hoopBody.position.z - body.position.z);
+        (hoopBody.position.z - body.position.z-3)/1.5/100);
 
     return distance;
 }
