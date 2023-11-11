@@ -11,9 +11,13 @@ const loader = new THREE.TextureLoader();
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
 
-const directionalLight = new THREE.PointLight(0xffffff, 1.0, 100, 1);
+const directionalLight = new THREE.PointLight(0xffffff, 0.5, 100, 1);
 directionalLight.position.set(20, 20, 20);
 scene.add(directionalLight);
+
+const directionalLight2 = new THREE.PointLight(0xffffff, 0.5, 100, 1);
+directionalLight2.position.set(-20, 20, 20);
+scene.add(directionalLight2);
 
 
 // Create a ball (sphere) with a more realistic material
@@ -263,6 +267,7 @@ respawnButton.addEventListener('click', () => {
 // Enable shadows
 renderer.shadowMap.enabled = true;
 directionalLight.castShadow = true;
+directionalLight2.castShadow = true;
 ball.castShadow = true;
 floor.receiveShadow = true;
 
