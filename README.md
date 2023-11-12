@@ -1,14 +1,14 @@
-## graphics-project
+# graphics-project
 A live demo of this project is available [here](https://jacksonhorton.github.io/graphics-project/game.html).
 
 <p align="center">
   <img width="500" alt="screenshot" src="https://github.com/jacksonhorton/graphics-project/assets/59177560/0d2a4ea8-1ea4-49d2-9109-1159620c689c">
 </p>
 
-# Background
+## Background
 In this project, we used [Cannon.js](https://github.com/schteppe/cannon.js), a lightweight 3d physics engine, to create an arcade style basketball shooter.
 
-# Implemented Features And How to Use Them
+## Implemented Features And How to Use Them
 * Movable Camera- The user can move around the camera by moving the mouse or by using the arrow keys on a keyboard. 
 The option to move the camera with the mouse can be disabled or enabled by clicking a check box in the 
 top right UI panel labeled: "Move the camera with mouse".  There are also textbox UI elements labeled: 
