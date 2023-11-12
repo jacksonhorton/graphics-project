@@ -34,7 +34,8 @@ During the throwing contest, two players will be given 30 seconds to score as ma
 into the hoop. The contest starts with Player 1's turn before moving on to Player 2's turn. Once, Player 2's turn is complete
  the winner will be the player who scored the most points. The points each player scored can be seen in the top, center UI element.
 
-* Physics- Thanks to the Cannon.js physics engine, the program can simulate the 3D ball bouncing around in a 3D environment.
+* Physics and Collison Detection- Thanks to the Cannon.js physics engine, the program can simulate the 3D ball bouncing around
+in a 3D environment. The program does this by detecting collisons and calculateing how the ball bounces based on those collisons.
 
 * Lighting- Using three.js and WebGL, the program uses and simulates lighting from multiple lighting sources. In this instance, 
 we used multiple white point lights within the 3D environment.
