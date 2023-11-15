@@ -4,6 +4,7 @@ A live demo of this project is available [here](https://jacksonhorton.github.io/
 <p align="center">
   <img width="500" alt="screenshot" src="[https://github.com/jacksonhorton/graphics-project/assets/97753129/856d7f2b-619c-41be-b1b2-526801a9d0a3]">
 </p>
+![screenshot](https://github.com/jacksonhorton/graphics-project/assets/97753129/6ad33a6f-8a05-49a5-97cd-c7914249f779)
 
 ## Tools and Software
 In this project, we used [Cannon.js](https://github.com/schteppe/cannon.js), a lightweight 3d physics engine, to create an arcade style basketball shooter.
