@@ -300,13 +300,15 @@ const mouse = new THREE.Vector2();
 const intersection = new THREE.Vector3();
 
 //For audio
-const audioListener = new THREE.AudioListener();
+const audioListener = new THREE.AudioListener(); //Audio listener
 camera.add(audioListener);
 
 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-let audioCheck = false;
+let audioCheck = false; //Conditional to check if music is playing
 
-const audioLoader = new THREE.AudioLoader();
+const audioLoader = new THREE.AudioLoader(); //Audio buffer object
+
+//Audio Objects
 const music = new THREE.Audio(audioListener);
 const bounceURLS = [
     'https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/bounce1.mp3',
@@ -321,6 +323,7 @@ const swish = new THREE.Audio(audioListener);
 const whoosh = new THREE.Audio(audioListener);
 const backboard = new THREE.Audio(audioListener);
 
+//Load each MP4 into a buffer and set volume
 audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/music.mp3', function (buffer) {
     music.setBuffer(buffer);
     music.setLoop(true);
@@ -356,6 +359,7 @@ audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-proje
     backboard.setVolume(0.5);
 })
 
+//Conditional button for pausing and resuming music
 document.getElementById('audioButton').addEventListener('click', function () {
     if (audioCheck) {
         music.pause();
