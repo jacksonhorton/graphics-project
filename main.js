@@ -250,7 +250,14 @@ backboardBody.addEventListener("collide", function (e) {
 
 // Set restitution (bounciness) properties
 ballBody.material.restitution = 0.8; // Adjust the restitution value as needed
-floorBody.material.restitution = 1.0; // Adjust the restitution value as needed
+floorBody.material.restitution = 1; // Adjust the restitution value as needed
+
+//Changes Bounciness
+const bouncinessInput = document.getElementById("bounciness");
+bouncinessInput.addEventListener("input", () => {
+    const newBounciness = bouncinessInput.value; // Invert the value as Cannon.js uses negative Y for gravity
+    ballBody.material.restitution = newBounciness;
+});
 
 // Find the respawn button element by its id
 const respawnButton = document.getElementById('respawnButton');
@@ -499,7 +506,7 @@ function animate() {
     {
         if (!hasScored) {
             // Increase the score
-            swish.play();
+        swish.play();
 	    if(player1Active && gameActive) {
 		player1Score++;
 		console.log(player1Score);
