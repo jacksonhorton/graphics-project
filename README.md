@@ -5,14 +5,14 @@ A live demo of this project is available [here](https://jacksonhorton.github.io/
   <img width="500" alt="screenshot" src="https://github.com/jacksonhorton/graphics-project/assets/97753129/6ad33a6f-8a05-49a5-97cd-c7914249f779">
 </p>
 
-## Tools and Software
+## Tools And Software
 In this project, we used [Cannon.js](https://github.com/schteppe/cannon.js), a lightweight 3d physics engine, to create an arcade style basketball shooter.
 This project also uses [Three.js](https://threejs.org/), a 3D library that assists develops in scenes, lights, shadows, materials, textures, 3d math, and more.
 
 The project was written in WebGL, a JavaScript and HTML API for interactive 2D and 3D graphics for most available web browsers.
 
 
-## Implemented Features And How to Use Them
+## Implemented Features And How To Use Them
 * Movable Camera- The user can move around the camera by moving the mouse or by using the arrow keys on a keyboard. 
 The option to move the camera with the mouse can be disabled or enabled by clicking a check box in the 
 top right UI panel labeled: "Move the camera with mouse".  There are also textbox UI elements labeled: 
@@ -38,14 +38,14 @@ During the throwing contest, two players will be given 30 seconds to score as ma
 into the hoop. The contest starts with Player 1's turn before moving on to Player 2's turn. Once, Player 2's turn is complete
  the winner will be the player who scored the most points. The points each player scored can be seen in the top, center UI element.
 
-* Physics and Collison Detection- Thanks to the Cannon.js physics engine, the program can simulate the 3D ball bouncing around
-in a 3D environment. The program does this by detecting collisons and calculateing how the ball bounces based on those collisons.
+## Requirements Met
+* 3D Environment
+* Camera Movement
+* Textures
+* User Interactivity
+* Playable Game
+* Collision Detection
+* Audio and Music
+* Physics Engine
 
-* Lighting- Using three.js and WebGL, the program uses and simulates lighting from multiple lighting sources. In this instance, 
-we used multiple white point lights within the 3D environment.
-
-* 3D Environment and Objects- This program allows the users to interact with a ball 3D object within a 3D environment consisting
- of a floor, four walls, and a basketball hoop.
-
-* Texturing Mapping- This program uses texture mapping to implement textures for the 3D environment and objects. Additionally, 
-we implemented cube mapping for the program's background textures.
+## Sources For Textures
