@@ -2,7 +2,7 @@
 A live demo of this project is available [here](https://jacksonhorton.github.io/graphics-project/game.html).
 
 <p align="center">
-  <img width="500" alt="screenshot" src="https://github.com/jacksonhorton/graphics-project/assets/59177560/0d2a4ea8-1ea4-49d2-9109-1159620c689c">
+  <img width="500" alt="screenshot" src="[https://github.com/jacksonhorton/graphics-project/assets/97753129/856d7f2b-619c-41be-b1b2-526801a9d0a3]">
 </p>
 
 ## Tools and Software
