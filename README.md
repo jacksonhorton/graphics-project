@@ -5,8 +5,12 @@ A live demo of this project is available [here](https://jacksonhorton.github.io/
   <img width="500" alt="screenshot" src="https://github.com/jacksonhorton/graphics-project/assets/59177560/0d2a4ea8-1ea4-49d2-9109-1159620c689c">
 </p>
 
-## Background
+## Tools and Software
 In this project, we used [Cannon.js](https://github.com/schteppe/cannon.js), a lightweight 3d physics engine, to create an arcade style basketball shooter.
+This project also uses [Three.js](https://threejs.org/), a 3D library that assists develops in scenes, lights, shadows, materials, textures, 3d math, and more.
+
+The project was written in WebGL, a JavaScript and HTML API for interactive 2D and 3D graphics for most available web browsers.
+
 
 ## Implemented Features And How to Use Them
 * Movable Camera- The user can move around the camera by moving the mouse or by using the arrow keys on a keyboard. 
