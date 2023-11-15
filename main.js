@@ -255,7 +255,7 @@ floorBody.material.restitution = 1; // Adjust the restitution value as needed
 //Changes Bounciness
 const bouncinessInput = document.getElementById("bounciness");
 bouncinessInput.addEventListener("input", () => {
-    const newBounciness = bouncinessInput.value; // Invert the value as Cannon.js uses negative Y for gravity
+    const newBounciness = bouncinessInput.value; 
     ballBody.material.restitution = newBounciness;
 });
 
