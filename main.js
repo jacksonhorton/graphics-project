@@ -1,4 +1,5 @@
 // Initialize Three.js
+var showControls = false;
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -322,6 +323,10 @@ const grab = new THREE.Audio(audioListener);
 const swish = new THREE.Audio(audioListener);
 const whoosh = new THREE.Audio(audioListener);
 const backboard = new THREE.Audio(audioListener);
+const shortWhistle = new THREE.Audio(audioListener);
+const longWhistle = new THREE.Audio(audioListener);
+const player1Wins = new THREE.Audio(audioListener);
+const player2Wins = new THREE.Audio(audioListener);
 
 //Load each MP4 into a buffer and set volume
 audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/music.mp3', function (buffer) {
@@ -357,6 +362,24 @@ audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-proje
 audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/backboard.mp3', function (buffer) {
     backboard.setBuffer(buffer);
     backboard.setVolume(0.5);
+})
+
+audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/short-whistle.mp3', function (buffer) {
+        shortWhistle.setBuffer(buffer);
+        shortWhistle.setVolume(0.9);
+    })
+audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/long-whistle.mp3', function (buffer) {
+    longWhistle.setBuffer(buffer);
+    longWhistle.setVolume(0.9);
+})
+
+audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/player-1-wins.mp3', function (buffer) {
+        player1Wins.setBuffer(buffer);
+        player1Wins.setVolume(0.7);
+    })
+audioLoader.load('https://raw.githubusercontent.com/jacksonhorton/graphics-project/master/audio/player-2-wins.mp3', function (buffer) {
+    player2Wins.setBuffer(buffer);
+    player2Wins.setVolume(0.7);
 })
 
 //Conditional button for pausing and resuming music
@@ -606,6 +629,7 @@ function resetGame() {
 
 // Function to start the game
 function startGame() {
+  unblur();
   resetGame();
   if (gameActive) {
     return; // Game is already active
@@ -618,36 +642,47 @@ function startGame() {
   // Display the initial scores
   document.getElementById("player1Score").textContent = "Player 1: " + player1Score;
   document.getElementById("player2Score").textContent = "Player 2: " + player2Score;
-
+  
   // Indicate player 1's turn
   document.getElementById("winner").textContent = "Player 1's Turn";
+  shortWhistle.play();
 
-  // Start a 30-second timer for player 1
   setTimeout(() => {
-    gameActive = false;
-    document.getElementById("winner").textContent = "Switching to Player 2";
-    gameActive = true;
-    player2Active = true;
-    player1Active = false;
+    // get game ready
+
+    // Start a 30-second timer for player 1
     setTimeout(() => {
-      // Indicate player 2's turn
-      document.getElementById("winner").textContent = "Player 2's Turn";
+        longWhistle.play();
 
-      // Start a 30-second timer for player 2
-      setTimeout(() => {
         gameActive = false;
+        document.getElementById("winner").textContent = "Switching to Player 2";
+        gameActive = true;
+        player2Active = true;
+        player1Active = false;
+        setTimeout(() => {
+        shortWhistle.play()
+        // Indicate player 2's turn
+        document.getElementById("winner").textContent = "Player 2's Turn";
+        // Start a 30-second timer for player 2
+        setTimeout(() => {
+            longWhistle.play();
+            gameActive = false;
 
-        // Determine the winner and display the result
-        if (player1Score > player2Score) {
-          document.getElementById("winner").textContent = "Winner: Player 1";
-        } else if (player2Score > player1Score) {
-          document.getElementById("winner").textContent = "Winner: Player 2";
-        } else {
-          document.getElementById("winner").textContent = "It's a tie!";
-        }
-      }, 30000); // 30 seconds for player 2
-    }, 1000); // 1-second delay before player 2's turn
-  }, 30000); // 30 seconds for player 1
+            // Determine the winner and display the result
+            if (player1Score > player2Score) {
+                document.getElementById("winner").textContent = "Winner: Player 1";
+                setTimeout(() => { player1Wins.play(); }, 1000);
+            } else if (player2Score > player1Score) {
+                document.getElementById("winner").textContent = "Winner: Player 2";
+                setTimeout(() => { player2Wins.play(); }, 1000);
+            } else {
+                document.getElementById("winner").textContent = "It's a tie!";
+            }
+            blur();
+        }, 30000); // 30 seconds for player 2
+        }, 4000); // 4-second delay before player 2's turn
+    }, 30000); // 30 seconds for player 1
+  }, 2000); // 2 second delay before start
 }
 
 // Event listener for the "Start Game" button
@@ -736,6 +771,35 @@ function onMouseUp() {
     }
 }
 
+
+function blur() {
+    console.log("blurp");
+    var blurredDiv = document.getElementById('blur');
+    blurredDiv.style.backdropFilter = 'blur(5px)';
+    blurredDiv.style.backgroundColor = 'rgba(250, 0, 0, 0.2)';
+
+    var menu = document.getElementById('menu');
+    menu.style.opacity = '1';
+    menu.style.pointerEvents = 'all';
+
+    var gameButtons = document.getElementById('game-buttons');
+    gameButtons.style.visibility = 'hidden';
+}
+function unblur() {
+    console.log("unblur dat thang");
+    var blurredDiv = document.getElementById('blur');
+    blurredDiv.style.backdropFilter = 'blur(0px)'; // Set blur to 0 for unblurred effect
+    blurredDiv.style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
+
+    var menu = document.getElementById('menu');
+    menu.style.opacity = '0';
+    menu.style.pointerEvents = 'none';
+
+    var gameButtons = document.getElementById('game-buttons');
+    gameButtons.style.visibility = 'visible';
+}
+
+
 function distanceToHoop(body) {
     let distance = new THREE.Vector3(
         (hoopBody.position.x - body.position.x)/1.5/100,
@@ -786,5 +850,18 @@ gravityInput.addEventListener("input", () => {
     const newGravity = -parseFloat(gravityInput.value); // Invert the value as Cannon.js uses negative Y for gravity
     world.gravity.set(0, newGravity, 0);
 });
+
+function toggleControls() {
+    showControls = !showControls;
+    
+    var controls = document.getElementById("controls");
+    if (showControls) {
+        controls.style.visibility = 'visible';
+    }
+    else {
+        controls.style.visibility = 'hidden';
+    }
+}
+
 // Start the animation loop
 animate();
