@@ -21,6 +21,16 @@ directionalLight2.position.set(-20, 20, 20);
 scene.add(directionalLight2);
 
 
+// import 3d models
+const model = loader.load('https://threejs.org/examples/models/suzanne.obj');
+
+loader.load( 'models/sports_bleachers.gltf', function ( gltf ) {
+	scene.add( gltf.scene );
+}, undefined, function ( error ) {
+	console.error( error );
+} );
+
+
 // Create a ball (sphere) with a more realistic material
 const radius = 1;
 const segments = 32;
