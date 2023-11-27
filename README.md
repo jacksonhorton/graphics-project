@@ -5,40 +5,43 @@ A live demo of this project is available [here](https://jacksonhorton.github.io/
   <img width="500" alt="screenshot" src="https://github.com/jacksonhorton/graphics-project/assets/97753129/6ad33a6f-8a05-49a5-97cd-c7914249f779">
 </p>
 
-## Tools And Software
+
+
+
+# Features
+
+### Two-Player Gamemode
+Currently, the only gamemode included in Hoopz is the two-player vs mode. In this mode, the first player gets 30 seconds to make as many shots as possible. Then, the second player gets 30 seconds to shoot as well. Then, the winner is shown on the top of the screen and an audio clip plays to indicate the winner.
+
+### Power Bar and Basketball Shooting
+<p align="center">
+  <img src="https://github.com/jacksonhorton/graphics-project/assets/59177560/ef9c5e06-e7a7-48cd-81b9-95dc5056e744" width=500 alt="animated" />
+</p>
+You can control the power of your shot by holding the mouse still. The power indicator will visually show how much power that is applied when the mouse is released. This allows the user to shoot from any spot on the court. If the ball is farther away, you can put more power into the shot compared to if the ball was being shot close to the goal.
+
+### Variable Gravity
+The user can change the gravity being used by the physics engine by changing the value within the "Gravity" textbox present within the top right UI panel. By default this value is 9.81, or Earth-like gravity. Increasing or decreasing this value increases and decreases the gravity, respectively. This mechanic adds a fun customization to spice up gameplay.
+
+### Audio
+Hoopz features music and sound effects. The music can be disabled or enabled with the "Toggle Music" button. The game also features additional sound effects that are not disabled when the music is diabled. These sound effects include whistles to signal the beginning and end of each player's turn, basketball bounces, rim/goal bounce sounds, etc.
+
+### Camera Mobility
+In Hoopz, the camera can moved around by moving the mouse or by using the arrow keys on a keyboard. 
+The option to move the camera with the mouse can be disabled or enabled by clicking a check box in the top right UI panel labeled: "Move the camera with mouse".  There are also textbox UI elements labeled: "Camera X", "Camera Y", and "Camera Z". You can manually change the values within these boxes to change the camera position with more granularity. Lastly, there's a "Reset Camera" button in the game controls which resets the camera back to its original position.
+
+
+
+
+# Tools And Software
 In this project, we used [Cannon.js](https://github.com/schteppe/cannon.js), a lightweight 3d physics engine, to create an arcade style basketball shooter.
 This project also uses [Three.js](https://threejs.org/), a 3D library that assists develops in scenes, lights, shadows, materials, textures, 3d math, and more.
 
 The project was written in WebGL, a JavaScript and HTML API for interactive 2D and 3D graphics for most available web browsers.
 
 
-## Implemented Features And How To Use Them
-* Movable Camera- The user can move around the camera by moving the mouse or by using the arrow keys on a keyboard. 
-The option to move the camera with the mouse can be disabled or enabled by clicking a check box in the 
-top right UI panel labeled: "Move the camera with mouse".  There are also textbox UI elements labeled: 
-"Camera X", "Camera Y", and "Camera Z". The user can optionally change the values within these boxes to 
-change the camera position. Lastly, there's a button labeled "Reset Camera", clicking on this button will 
-reset the camera back to its original position.
 
-* Audio- This program features audio and music. The music can be easily disabled or enabled by the user by 
-clicking on the "Toggle Music" button. Additional audio effects, such as the ball bouncing, the user scoring a 
-point, or the ball hitting the backboard, won't be disabled.
 
-* Changable Gravity- The user can change the gravity being used by the physics engine by changing the value within the "Gravity"
- textbox present within the top right UI panel. By default this value is 9.81, or Earth-like gravity, increasing or 
-decreasing this value increases and decreases the gravity, respectively.
-
-* Throwable Ball- The user can pick up a 3D ball by clicking and holding the left mouse button. The ball can be thrown 
-by releasing the left mouse button, though the longer the user holds onto the ball the further it will be thrown. The user, 
-while holding the ball, can move it around by dragging the mouse. The ball's position can be reset to its original position 
-at the center of the court by clicking on the "Reset Position" button in the top left.
-
-* Two-Player Throwing Contest- Clicking on the "Start Game" button in the top right will a new game of a throwing contest. 
-During the throwing contest, two players will be given 30 seconds to score as many points as possible by throwing the ball 
-into the hoop. The contest starts with Player 1's turn before moving on to Player 2's turn. Once, Player 2's turn is complete
- the winner will be the player who scored the most points. The points each player scored can be seen in the top, center UI element.
-
-## Requirements Met
+# Requirements Met
 * 3D Environment
 * Camera Movement
 * Textures
@@ -48,6 +51,8 @@ into the hoop. The contest starts with Player 1's turn before moving on to Playe
 * Audio and Music
 * Physics Engine
 
-## Sources For Textures
-* Ball Texture- [here](https://opengameart.org/content/basket-ball-texture)
-* Space Background Cubemap Texture- [here](https://www.cleanpng.com/png-space-skybox-texture-mapping-cube-mapping-night-sk-776480/)
+# Sources For Textures
+* Ball Texture: [here](https://opengameart.org/content/basket-ball-texture)
+* Space Background Cubemap Texture: [here](https://www.cleanpng.com/png-space-skybox-texture-mapping-cube-mapping-night-sk-776480/)
+* Winning Announcements: [here](https://www.myinstants.com/en/index/us/)
+* Whistle sound effects: [here](https://mixkit.co)
