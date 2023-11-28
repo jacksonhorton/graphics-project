@@ -55,4 +55,7 @@ The project was written in WebGL, a JavaScript and HTML API for interactive 2D a
 * Ball Texture: [here](https://opengameart.org/content/basket-ball-texture)
 * Space Background Cubemap Texture: [here](https://www.cleanpng.com/png-space-skybox-texture-mapping-cube-mapping-night-sk-776480/)
 * Winning Announcements: [here](https://www.myinstants.com/en/index/us/)
-* Whistle sound effects: [here](https://mixkit.co)
+* Whistle Sound Effects: [here](https://mixkit.co)
+* Floor Texture: [here](https://www.psdgraphics.com/textures/basketball-floor-texture/)
+* Ball Bouncing Sounds: [here](https://freesound.org/people/CraterZounds/sounds/207964/) & [here](https://freesound.org/people/qubodup/sounds/60013/)
+* Scoring Sound Effect: [here](https://elements.envato.com/basketball-through-net-MVML25D)
